@@ -1,0 +1,46 @@
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: mubashir05
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: yourdatabase
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      PGHOST: postgres
+      PGUSER: mubashir05
+      PGPASSWORD: 123456
+      PGDATABASE: yourdatabase
+    ports:
+      - "3001:5000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
