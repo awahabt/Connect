@@ -6,10 +6,11 @@ COPY package*.json ./
 
 RUN npm install
 
+COPY prisma ./prisma/
+
 COPY . .
 
-# Add node_modules/.bin to PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+RUN npx prisma generate
 
 EXPOSE 3001
 

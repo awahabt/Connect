@@ -1,36 +1,17 @@
+version: "3.8"
+
 services:
   postgres:
     image: postgres:13
     environment:
-      POSTGRES_USER: mubashir05
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: connect  # Set the database name to "connect"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      POSTGRES_DB: connect
     ports:
       - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
-  backend:
-    build: ./backend
-    restart: always
-    environment:
-      PGHOST: postgres
-      PGUSER: mubashir05
-      PGPASSWORD: 123456
-      PGDATABASE: connect  # Connect to the "connect" database
-    ports:
-      - "3001:5000"
-    depends_on:
-      - postgres
-
-  frontend:
-    build: ./frontend
-    restart: always
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-  
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -41,5 +22,27 @@ services:
     depends_on:
       - postgres
 
+  backend:
+    build: ./backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3001:5000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app  # Fix the spacing here
+      - backend_node-modules:/app/node_modules  # Correct volume mount for node_modules
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
 volumes:
   postgres-data:
+  backend_node-modules:
