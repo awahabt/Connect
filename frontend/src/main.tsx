@@ -16,8 +16,8 @@ import Index from "./pages/auth/index.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<App />} />
-      <Route path="/auth" element={<Index />}>
+      <Route path="" element={<App />} />
+      <Route path="/" element={<Index />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
       </Route>
