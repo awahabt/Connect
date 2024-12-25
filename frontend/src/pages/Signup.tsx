@@ -75,28 +75,28 @@ const Signup = () => {
               name="emailOrMobile"
               type="text"
               placeHolder="Email or Mobile no."
-              className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
+              // className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
             />
             <FormInput
               form={form}
               name="fullName"
               type="text"
               placeHolder="Full name"
-              className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
+              // className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
             />
             <FormInput
               form={form}
               name="username"
               type="text"
               placeHolder="Username"
-              className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
+              // className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm bg-transparent"
             />
             <FormInput
               form={form}
               name="password"
               type="password"
               placeHolder="Password"
-              className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm font-extrabold placeholder:font-normal bg-transparent"
+              // className="w-full outline-none border border-[#B9B0B0] py-3 px-4 rounded-lg text-sm font-extrabold placeholder:font-normal bg-transparent"
             />
             <div className="max-w-[300px] flex gap-1 mx-3 text-[12px] text-[#777777]">
               <p>
