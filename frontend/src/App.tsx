@@ -1,13 +1,19 @@
-import Navbar from "./components/Navbar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppRouter from "./AppRouter";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <div className="w-full flex dark:bg-[#0E1113] montserrat ">
-      <Navbar/>
-      {/* <div className="bor py-1 max-w-[1500px] overflow-hidden">
-        
-      </div> */}
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        {/* <AuthProvider> */}
+        <Routes>
+          <Route path="/*" element={<AppRouter />} />
+        </Routes>
+        {/* </AuthProvider> */}
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
