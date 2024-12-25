@@ -1,44 +1,15 @@
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: connect
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      - app-network
-
-  # pgAdmin: Database management UI
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "8080:80"
-    depends_on:
-      - postgres
-    networks:
-      - app-network
-
-  # Backend (Node.js / Express)
+  # Backend (Node.js)
   backend:
     build: ./backend
     restart: always
-    env_file:
-      - ./backend/.env
     ports:
       - "3001:5000"  # Expose backend API on port 3001
     depends_on:
       - postgres
     volumes:
       - ./backend:/app  # Mount the backend directory into the container
-      - backend_node_modules:/app/node_modules  # Prevents overwriting node_modules
+      - /app/node_modules  # Prevents overwriting node_modules
     command: npm run dev  # Ensure hot-reloading for development (with nodemon)
     networks:
       - app-network
@@ -53,14 +24,27 @@ services:
       - backend
     volumes:
       - ./frontend:/app  # Mount the frontend directory
-    command: npm start  # Ensure React development server with hot-reloading
+      - /app/node_modules  # Prevents overwriting node_modules
+    command: npm run dev  # Ensure React development server with hot-reloading
+    networks:
+      - app-network
+
+  # Database (PostgreSQL)
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: example
     networks:
       - app-network
 
 # Define named volumes for persistent data
 volumes:
   postgres-data:
-  backend_node_modules:
 
 # Define networks for internal communication
 networks:
