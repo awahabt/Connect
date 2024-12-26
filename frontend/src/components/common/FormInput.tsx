@@ -89,7 +89,7 @@ const FormInput = ({
               <Input
                 id={id}
                 disabled={disabled}
-                className="bg-white placeholder:text-black placeholder:opacity-50"
+                className="bg-white py-3 placeholder:text-black placeholder:opacity-50"
                 type="number"
                 onChange={handleChange}
                 onBlur={handleBlur}
